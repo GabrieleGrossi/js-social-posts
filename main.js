@@ -84,7 +84,7 @@ posts.forEach((element, index)=>{
         </div>
         <div class="post__text">${element.content}.</div>
         <div class="post__image">
-            <img src="https://unsplash.it/600/300?image=171" alt="">
+            <img src="${element.media}" alt="">
         </div>
         <div class="post__footer">
             <div class="likes js-likes">

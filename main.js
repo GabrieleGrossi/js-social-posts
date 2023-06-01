@@ -8,7 +8,7 @@ Milestone 2
 Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 */
-
+let postLikes = [];
 const posts = [
     {
         "id": 1,
@@ -89,39 +89,44 @@ posts.forEach((element, index)=>{
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button js-like-button" href="#" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                    Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                 </div>
             </div> 
         </div>            
     </div>`
 })
 
-const likeButton=document.querySelectorAll('a.like-button');
+const likeButtons=document.querySelectorAll('a.like-button');
 
-let postLikes = [];
+const counterLike =document.querySelectorAll('a.like-button.js-likes-counter')
 
-const counterLike =document.querySelectorAll('js-likes-counter')
-
-likeButton.forEach(function(button){
-    button.addEventListener('click', function(){
+likeButtons.forEach((likeButton) => {
+    likeButton.addEventListener('click', function(event){
+        
         event.preventDefault();
-        button.classList.toggle('like-button--liked');
-
-
-        if (button.classList.contains('like-button--liked')) {
-            counterLike.innerHTML = postLikes + 1;
-            console.log (postLikes)
-        } else {
-            counterLike.innerHTML = postLikes;
-        }
-
-
-
+        
+        const postId=this.getAttribute('data-postid');
+        
+       if(this.classList.contains('like-button--liked')){
+        this.classList.remove('like-button--liked');
+        document.getElementById('like-counter-'+postId).innerHTML=parseInt(document.getElementById('like-counter-'+postId).innerHTML) - 1;
+        postLikes.splice(postLikes.indexOf(parseInt(postId), 1));
+       }else{
+        this.classList.add('like-button--liked');
+        document.getElementById('like-counter-'+postId).innerHTML=parseInt(document.getElementById('like-counter-'+postId).innerHTML) + 1;
+        postLikes.push(parseInt(postId));
+       }
     });
 });
+
+/*postLikes.push(parseInt(this.getAttribute('data-postid')));
+        
+        this.classList.toggle('like-button--liked');
+
+        counterLike.innerHTML=parseInt(counterLike.innerHTML)+1;*/

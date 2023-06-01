@@ -124,9 +124,3 @@ likeButtons.forEach((likeButton) => {
        }
     });
 });
-
-/*postLikes.push(parseInt(this.getAttribute('data-postid')));
-        
-        this.classList.toggle('like-button--liked');
-
-        counterLike.innerHTML=parseInt(counterLike.innerHTML)+1;*/
